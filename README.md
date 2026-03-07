@@ -33,3 +33,8 @@ At this time, if an audio or video is played on the server, the client will be a
 If you need to stop.
 
 `./remote_audio.sh stop`
+
+If there is no audio on the client after running, you can try the following methods to solve it:
+    1. Use the following command to view the corresponding sink: `wpctl status`
+    2. Find the line that contains `Snapcast Sink` and note the first number in that line. For example, for ` │ 78. Snapcast Sink [vol: 1.00]`, note `78`.
+    3. Use the following command to set the default output `wpctl set-default 78`, where `78` should be replaced with the number noted in the previous step.
