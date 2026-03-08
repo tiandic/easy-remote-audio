@@ -34,7 +34,7 @@ If you need to stop.
 
 `./remote_audio.sh stop`
 
-If there is no audio on the client after running, you can try the following methods to solve it:
+If there is no sound from the client after running, you can try the following methods to solve it (all operations are on the server):
 
 1. Use the following command to view the corresponding sink: `wpctl status`
 
