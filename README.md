@@ -6,6 +6,7 @@ A simple script that allows you to hear the server's sound on the client side on
     - Install and start the SSH service.
 2. client
     - Install `openssh-client`, [snapcast](https://github.com/snapcast/snapcast)
+
        ```
        # install command on debian: 
        sudo apt install openssh-client snapserver snapclient
