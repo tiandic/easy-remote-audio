@@ -8,7 +8,7 @@ help_str="Example of use:\n    $0 init a@192.168.1.1\nParameter:"
 # help_str="使用示例:\n    $0 init \nper:"
 SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd)"
 simple_conf_dir_path="~/.config/pipewire/pipewire.conf.d"
-simple_conf_path="${simple_conf_dir_path}/easy-remote-audio.td.pipewire.conf"
+simple_conf_path="${simple_conf_dir_path}/easy-remote-audio.pipewire.conf"
 
 add_arg() {
     # The first is the parameter name, the second is the parameter description
@@ -21,7 +21,7 @@ init() {
     # A parameter is needed, for example a@192.168.1.1
     # 需要一个参数 例如 a@192.168.1.1
     ssh "$1" "mkdir -p $simple_conf_dir_path"
-    scp "${SCRIPT_PATH}/easy-remote-audio.td.pipewire.conf" "$1:$simple_conf_path"
+    scp "${SCRIPT_PATH}/easy-remote-audio.pipewire.conf" "$1:$simple_conf_path"
     ssh "$1" 'systemctl --user restart pipewire'
 }
 
