@@ -8,7 +8,7 @@ help_str="Example of use:\n    $0 init a@192.168.1.1\nParameter:"
 # help_str="使用示例:\n    $0 init \nper:"
 SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd)"
 simple_conf_dir_path="~/.config/pipewire/pipewire.conf.d"
-simple_conf_path="${simple_conf_dir_path}/my-protocol-simple.conf"
+simple_conf_path="${simple_conf_dir_path}/easy-remote-audio.td.conf"
 
 add_arg() {
     # The first is the parameter name, the second is the parameter description
@@ -21,7 +21,14 @@ init() {
     # A parameter is needed, for example a@192.168.1.1
     # 需要一个参数 例如 a@192.168.1.1
     ssh "$1" "mkdir -p $simple_conf_dir_path"
-    scp "${SCRIPT_PATH}/my-protocol-simple.conf" "$1:$simple_conf_path"
+    scp "${SCRIPT_PATH}/easy-remote-audio.td.conf" "$1:$simple_conf_path"
+    ssh "$1" 'systemctl --user restart pipewire'
+}
+
+uninit(){
+    # A parameter is needed, for example a@192.168.1.1
+    # 需要一个参数 例如 a@192.168.1.1
+    ssh "$1" "rm \"$simple_conf_path\""
     ssh "$1" 'systemctl --user restart pipewire'
 }
 
@@ -41,6 +48,8 @@ stop() {
 
 add_arg "init  <user@server>" "Initialization, this option must be run before running other options"
 # add_arg "init" "初始化,运行其他选项前必须先运行该选项"
+add_arg "uninit  <user@server>" "Cancel initialization"
+# add_arg "uninit  <user@server>" "取消初始化"
 add_arg "start <user@server>" "Start remote audio"
 # add_arg "start" "启动远程音频"
 add_arg "stop" "Stop remote audio"
@@ -59,6 +68,15 @@ if [[ $oper == "init" ]]; then
         exit 1
     fi
     init "$2"
+fi
+
+if [[ $oper == "uninit" ]]; then
+    if [[ $# -lt 2 ]] ; then
+        echo "Missing a parameter, for example: a@192.168.1.1"
+        # echo "缺少一个参数 例如: a@192.168.1.1"
+        exit 1
+    fi
+    uninit "$2"
 fi
 
 if [[ $oper == "start" ]]; then
