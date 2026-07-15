@@ -5,7 +5,11 @@ A simple script that allows you to hear the server's sound on the client side on
     - The audio system is PipeWire.
     - Install and start the SSH service.
 2. client
-    - Install `ssh`, `scp`, `snapserver`, `snapclient` (install command on debian: `sudo apt install snapserver snapclient`)
+    - Install `openssh-client`, [snapcast](https://github.com/snapcast/snapcast)
+       ```
+       # install command on debian: 
+       sudo apt install openssh-client snapserver snapclient
+       ```
 # Usage:
 ## help
 ```bash
